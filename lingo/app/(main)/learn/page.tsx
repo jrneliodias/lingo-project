@@ -1,4 +1,4 @@
-import StickWrapper from '@/components/StickWrapper'
+import StickWrapper from '@/components/stick-wrapper'
 import FeedWrapper from '@/components/feed-wrapper'
 import React from 'react'
 import { Header } from './header'
