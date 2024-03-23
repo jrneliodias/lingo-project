@@ -64,8 +64,26 @@ const main = async () => {
       {
         id: 2,
         unitId: 1,
-        title: "Vebs",
+        title: "Verbs",
         order: 2,
+      },
+      {
+        id: 3,
+        unitId: 1,
+        title: "Adjective",
+        order: 3,
+      },
+      {
+        id: 4,
+        unitId: 1,
+        title: "Adverb",
+        order: 4,
+      },
+      {
+        id: 5,
+        unitId: 1,
+        title: "Nouns 2",
+        order: 5,
       },
     ]);
 
