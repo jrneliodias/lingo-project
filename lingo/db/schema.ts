@@ -76,7 +76,7 @@ export const challengesOptions = pgTable("challenges_options", {
   text: text("text").notNull(),
   correct: boolean("correct").notNull(),
   imageSrc: text("image_src"),
-  audio: text("audio_src"),
+  audioSrc: text("audio_src"),
 });
 export const challengeOptionsRelations = relations(challengesOptions, ({ one, many }) => ({
   lesson: one(challenges, {
