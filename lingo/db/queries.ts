@@ -2,7 +2,7 @@ import { cache } from "react";
 import db from "./drizzle";
 import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
-import { challenges, challengesProgress, courses, lessons, units, userProgress } from "./schema";
+import { challenges, challengeProgress, courses, lessons, units, userProgress } from "./schema";
 
 export const getUserProgress = cache(async () => {
   const { userId } = await auth();
@@ -34,8 +34,8 @@ export const getUnits = cache(async () => {
         with: {
           challenges: {
             with: {
-              challengesProgress: {
-                where: eq(challengesProgress.userId, userId),
+              challengeProgress: {
+                where: eq(challengeProgress.userId, userId),
               },
             },
           },
@@ -49,7 +49,7 @@ export const getUnits = cache(async () => {
         return { ...lesson, completed: false };
       }
       const allCompletedChallenges = lesson.challenges.every((challenge) => {
-        return challenge.challengesProgress && challenge.challengesProgress.length > 0 && challenge.challengesProgress.every((progress) => progress.completed);
+        return challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress) => progress.completed);
       });
       return { ...lesson, completed: allCompletedChallenges };
     });
@@ -89,8 +89,8 @@ export const getCourseProgress = cache(async () => {
           unit: true,
           challenges: {
             with: {
-              challengesProgress: {
-                where: eq(challengesProgress.userId, userId),
+              challengeProgress: {
+                where: eq(challengeProgress.userId, userId),
               },
             },
           },
@@ -103,7 +103,7 @@ export const getCourseProgress = cache(async () => {
     .flatMap((unit) => unit.lessons)
     .find((lesson) => {
       return lesson.challenges.some((challenge) => {
-        return !challenge.challengesProgress || challenge.challengesProgress.length === 0 || challenge.challengesProgress.some((progress) => progress.completed === false);
+        return !challenge.challengeProgress || challenge.challengeProgress.length === 0 || challenge.challengeProgress.some((progress) => progress.completed === false);
       });
     });
   return {
@@ -130,9 +130,9 @@ export const getLesson = cache(async (id?: number) => {
       challenges: {
         orderBy: (challenges, { asc }) => [asc(challenges.order)],
         with: {
-          challengesOptions: true,
-          challengesProgress: {
-            where: eq(challengesProgress.userId, userId),
+          challengeOptions: true,
+          challengeProgress: {
+            where: eq(challengeProgress.userId, userId),
           },
         },
       },
@@ -143,7 +143,7 @@ export const getLesson = cache(async (id?: number) => {
   }
 
   const normalizedChallenges = data.challenges.map((challenge) => {
-    const completed = challenge.challengesProgress && challenge.challengesProgress.length > 0 && challenge.challengesProgress.every((progress) => progress.completed);
+    const completed = challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress) => progress.completed);
 
     return { ...challenge, completed };
   });
