@@ -1,4 +1,4 @@
-import { getUnits, getUserProgress } from '@/db/queries'
+import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } from '@/db/queries'
 import StickWrapper from '@/components/stick-wrapper'
 import FeedWrapper from '@/components/feed-wrapper'
 import React from 'react'
@@ -11,11 +11,16 @@ import Unit from './unit'
 const LearnPage = async () => {
 
     const userProgressData = getUserProgress()
-    const unitsData = getUnits();
+    const courseProgressData = getCourseProgress();
+    const lessonPercentageData = getLessonPercentage()
+        ; const unitsData = getUnits();
 
-    const [userProgress, units] = await Promise.all([userProgressData, unitsData])
+    const [userProgress, units, courseProgress, lessonPercentage] = await Promise.all([userProgressData, unitsData, courseProgressData, lessonPercentageData])
 
     if (!userProgress || !userProgress.activeCourse) {
+        redirect("/courses")
+    }
+    if (!courseProgress) {
         redirect("/courses")
     }
     return (
@@ -38,7 +43,7 @@ const LearnPage = async () => {
                             description={unit.description}
                             title={unit.title}
                             lessons={unit.lessons}
-                            activeLesson={undefined}
+                            activeLesson={courseProgress.activeLesson}
                             activeLessonPercentage={0}></Unit>
                     </div>
                 ))}
