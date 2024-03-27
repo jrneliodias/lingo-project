@@ -1,11 +1,11 @@
 "use client"
-
 import { challenges, challengeOptions, challengeProgress } from "@/db/schema";
-
+import { useState } from "react";
+import Header from "./header";
 
 interface QuizProps {
     initialLessonId: number;
-    initialPorcentage: number;
+    initialPercentage: number;
     initialHearts: number;
     userSubscription: any;
 
@@ -15,9 +15,17 @@ interface QuizProps {
     })[];
 
 }
-const Quiz = ({ initialPorcentage, initialHearts, initialLessonChallenges, initialLessonId, userSubscription }: QuizProps) => {
+const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initialLessonId, userSubscription }: QuizProps) => {
+
+    const [hearts, setHearts] = useState(initialHearts)
+    const [percentage, setPercentage] = useState(initialPercentage)
     return (
-        <div> Quiz</div>
+        <Header
+            hearts={hearts}
+            percentage={percentage}
+            hasActiveSubscription={!!userSubscription?.isActive}
+        />
+
     )
 }
 
