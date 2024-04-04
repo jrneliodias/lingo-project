@@ -22,7 +22,7 @@ const Challenge = ({
         <div className={cn(
             "grid gap-2",
             type === "ASSIST" && "grid-cols-1",
-            type === "SELECT" && "grid-cols-2 lg:grid-cols-[repeat(auto-fir,minmax(0,1fr))]",
+            type === "SELECT" && "grid-cols-2 lg:grid-cols-[repeat(auto-fr,minmax(0,1fr))]",
         )}>
             {options.map((option, i) => (
                 <Card
@@ -31,7 +31,7 @@ const Challenge = ({
                     text={option.text}
                     imageSrc={option.imageSrc}
                     shortcut={`${i + 1}`}
-                    selected={true || selectedOption === option.id}
+                    selected={selectedOption === option.id}
                     onClick={() => onSelect(option.id)}
                     status={status}
                     audioSrc={option.audioSrc}
