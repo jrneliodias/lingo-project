@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "./header";
 import QuestionBubble from "./question-bubble";
 import Challenge from "./challenge";
+import Footer from "./footer";
 
 interface QuizProps {
     initialLessonId: number;
@@ -27,10 +28,16 @@ const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initi
         return uncompletedIndex === -1 ? 0 : uncompletedIndex
 
     })
+    const [selectedOption, setSelectedOptions] = useState<number>()
+    const [status, setStatus] = useState<"correct" | "wrong" | "none">("none")
 
     const challenge = challenges[activeIndex]
     const options = challenge?.challengeOptions ?? []
 
+    const onSelect = (id: number | undefined) => {
+        if (status !== "none") return
+        setSelectedOptions(id)
+    }
     const title = challenge.type === "ASSIST" ? "Select the correct meaning"
         : challenge.question
 
@@ -54,9 +61,9 @@ const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initi
                             )}
                             <Challenge
                                 options={options}
-                                onSelect={() => { }}
-                                status="none"
-                                selectedOption={undefined}
+                                onSelect={onSelect}
+                                status={status}
+                                selectedOption={selectedOption}
                                 type={challenge.type}
 
                             />
@@ -65,6 +72,12 @@ const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initi
                     </div>
                 </div>
             </div>
+            <Footer
+                disabled={!selectedOption}
+                status={"completed" || status}
+                onCheck={() => { }}
+
+            />
         </>
 
     )
