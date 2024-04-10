@@ -7,7 +7,7 @@ type FooterProps = {
     status: "correct" | "wrong" | "none" | "completed"
     onCheck: () => void
     disabled?: boolean
-    lessonId?: boolean
+    lessonId?: number
 
 
 }
