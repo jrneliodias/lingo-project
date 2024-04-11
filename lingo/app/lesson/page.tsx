@@ -22,7 +22,7 @@ const LessonPage = async () => {
             initialPercentage={initialPercentage}
             initialLessonChallenges={lesson.challenges}
             initialHearts={userProgress.hearts}
-            userSubscription={undefined}
+            userSubscription={undefined} //TODO: Add user subscription
         >
 
         </Quiz>
