@@ -1,18 +1,19 @@
 "use client"
-import { challenges, challengeOptions, challengeProgress } from "@/db/schema";
+import { challenges, challengeOptions } from "@/db/schema";
 import { useState, useTransition } from "react";
 import Header from "./header";
-import QuestionBubble from "./question-bubble";
-import Challenge from "./challenge";
 import Footer from "./footer";
+import { ResultCard } from "./result-card";
+import Challenge from "./challenge";
+import QuestionBubble from "./question-bubble";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
 import { reduceHearts } from "@/actions/user-progress";
 import { useAudio, useWindowSize } from "react-use";
 import Image from "next/image";
-import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
+import { useHeartsModal } from "@/store/use-hearts-modal";
 
 interface QuizProps {
     initialLessonId: number;
@@ -27,6 +28,7 @@ interface QuizProps {
 
 }
 const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initialLessonId, userSubscription }: QuizProps) => {
+    const { open: openHeartsModal } = useHeartsModal();
     const { width, height } = useWindowSize()
     const router = useRouter()
     const [finishAudio] = useAudio({ src: "/finish.mp3", autoPlay: true });
@@ -85,7 +87,7 @@ const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initi
                 upsertChallengeProgress(challenge.id)
                     .then((response) => {
                         if (response?.error === "hearts") {
-                            console.error("Missing hearts.")
+                            openHeartsModal()
                             return
                         }
                         correctControls.play()
@@ -102,7 +104,7 @@ const Quiz = ({ initialPercentage, initialHearts, initialLessonChallenges, initi
                 reduceHearts(challenge.id)
                     .then((response) => {
                         if (response?.error === "hearts") {
-                            console.error("Missing hearts")
+                            openHeartsModal()
                             return
                         }
                         incorrectControls.play()
