@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import React from 'react'
 import { Items } from './items'
+import Promo from '@/components/promo'
 
 const ShopPage = async () => {
 
@@ -30,6 +31,7 @@ const ShopPage = async () => {
                     points={userProgress.points}
                     hasActiveSubscription={isPro}
                 />
+                {!isPro && (<Promo />)}
             </StickyWrapper>
             <FeedWrapper>
                 <div className="w-full flex flex-col items-center space-y-6">
