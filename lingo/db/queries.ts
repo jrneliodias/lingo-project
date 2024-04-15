@@ -2,7 +2,7 @@ import { cache } from "react";
 import db from "./drizzle";
 import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
-import { challenges, challengeProgress, courses, lessons, units, userProgress, userSubscription } from "./schema";
+import { challengeProgress, courses, lessons, units, userProgress, userSubscription } from "./schema";
 
 const DAY_IN_MS = 86_400_000;
 
@@ -30,11 +30,14 @@ export const getUnits = cache(async () => {
   }
 
   const data = await db.query.units.findMany({
+    orderBy: (units, { asc }) => [asc(units.order)],
     where: eq(units.courseId, userProgress.activeCourseId),
     with: {
       lessons: {
+        orderBy: (lesson, { asc }) => [asc(lesson.order)],
         with: {
           challenges: {
+            orderBy: (challenges, { asc }) => [asc(challenges.order)],
             with: {
               challengeProgress: {
                 where: eq(challengeProgress.userId, userId),
@@ -68,6 +71,16 @@ export const getCourses = cache(async () => {
 export const getCourseById = cache(async (courseId: number) => {
   const data = await db.query.courses.findFirst({
     where: eq(courses.id, courseId),
+    with: {
+      units: {
+        orderBy: (units, { asc }) => [asc(units.order)],
+        with: {
+          lessons: {
+            orderBy: (lesson, { asc }) => [asc(lesson.order)],
+          },
+        },
+      },
+    },
   });
 
   return data;
