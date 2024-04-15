@@ -1,5 +1,5 @@
 "use client"
-import { challenges, challengeOptions } from "@/db/schema";
+import { challenges, challengeOptions, userSubscription } from "@/db/schema";
 import { useState, useTransition } from "react";
 import Header from "./header";
 import Footer from "./footer";
@@ -20,7 +20,7 @@ interface QuizProps {
     initialLessonId: number;
     initialPercentage: number;
     initialHearts: number;
-    userSubscription: any;
+    userSubscription: typeof userSubscription.$inferSelect & { isActive: boolean } | null;
 
     initialLessonChallenges: (typeof challenges.$inferSelect & {
         completed: boolean;

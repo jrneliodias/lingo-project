@@ -1,4 +1,10 @@
-import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } from '@/db/queries'
+import {
+    getCourseProgress,
+    getLessonPercentage,
+    getUnits,
+    getUserProgress,
+    getUserSubscription
+} from '@/db/queries'
 import StickWrapper from '@/components/stick-wrapper'
 import FeedWrapper from '@/components/feed-wrapper'
 import React from 'react'
@@ -13,9 +19,23 @@ const LearnPage = async () => {
     const userProgressData = getUserProgress()
     const courseProgressData = getCourseProgress();
     const lessonPercentageData = getLessonPercentage()
-        ; const unitsData = getUnits();
+    const unitsData = getUnits();
+    const userSubscriptionData = getUserSubscription()
 
-    const [userProgress, units, courseProgress, lessonPercentage] = await Promise.all([userProgressData, unitsData, courseProgressData, lessonPercentageData])
+
+    const [
+        userProgress,
+        units,
+        courseProgress,
+        lessonPercentage,
+        userSubscription,
+    ] = await Promise.all([
+        userProgressData,
+        unitsData,
+        courseProgressData,
+        lessonPercentageData,
+        userSubscriptionData
+    ])
 
     if (!userProgress || !userProgress.activeCourse) {
         redirect("/courses")
@@ -30,7 +50,7 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     hearts={userProgress.hearts}
                     points={userProgress.points}
-                    hasActiveSubscription={false} />
+                    hasActiveSubscription={!!userSubscription?.isActive} />
             </StickWrapper>
             <FeedWrapper>
                 <Header title={userProgress.activeCourse.title} />

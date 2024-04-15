@@ -6,7 +6,7 @@ import Image from "next/image"
 type HeaderProps = {
     hearts: number
     percentage: number
-    hasActiveSubscription: any
+    hasActiveSubscription: boolean
 }
 const Header = ({ hearts, percentage, hasActiveSubscription }: HeaderProps) => {
     const { open } = useExitModal()
@@ -22,7 +22,7 @@ const Header = ({ hearts, percentage, hasActiveSubscription }: HeaderProps) => {
                     width={28}
                     alt="Heart"
                     className="mr-2" />
-                {hasActiveSubscription ? <InfinityIcon className="h-6 w-6 stroke-[3]" /> : hearts}
+                {hasActiveSubscription ? <InfinityIcon className="h-6 w-6 stroke-[2] shrink-0" /> : hearts}
             </div>
         </header>
     )
