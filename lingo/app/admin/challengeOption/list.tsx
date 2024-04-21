@@ -1,4 +1,4 @@
-import { BooleanField, Datagrid, List, NumberField, ReferenceField, TextField } from "react-admin";
+import { Datagrid, List, TextField, ReferenceField, NumberField, BooleanField } from "react-admin";
 
 export const ChallengeOptionList = () => {
     return (
@@ -12,5 +12,5 @@ export const ChallengeOptionList = () => {
                 <TextField source="audioSrc" />
             </Datagrid>
         </List>
-    )
-}
+    );
+};
