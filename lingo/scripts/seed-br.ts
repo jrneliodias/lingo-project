@@ -9,382 +9,347 @@ const db = drizzle(sql, { schema });
 const main = async () => {
   try {
     console.log("Seeding database");
-    await db.delete(schema.courses);
-    await db.delete(schema.userProgress);
-    await db.delete(schema.units);
-    await db.delete(schema.lessons);
-    await db.delete(schema.challenges);
-    await db.delete(schema.challengeOptions);
-    await db.delete(schema.challengeProgress);
-    await db.delete(schema.userSubscription);
 
-    await db.insert(schema.courses).values([
-      {
-        id: 1,
-        title: "Spanish",
-        imageSrc: "/es.svg",
-      },
-      {
-        id: 2,
-        title: "Portuguese",
-        imageSrc: "/br.svg",
-      },
-      {
-        id: 3,
-        title: "Freach",
-        imageSrc: "/fr.svg",
-      },
-      {
-        id: 4,
-        title: "Croatian",
-        imageSrc: "/hr.svg",
-      },
-      {
-        id: 5,
-        title: "Italian",
-        imageSrc: "/it.svg",
-      },
-    ]);
-
-    // unit 1 spanish
+    // unit 1 portuguese
     await db.insert(schema.units).values([
       {
-        id: 1,
-        courseId: 1,
+        id: 3,
+        courseId: 2,
         title: "Unit 1",
-        description: "Learn the basics of Spanish",
+        description: "Learn the basics of Portuguese",
         order: 1,
       },
       {
-        id: 2,
-        courseId: 1,
+        id: 4,
+        courseId: 2,
         title: "Unit 2",
-        description: "Learn the common words in Spanish",
+        description: "Learn the common words in Portuguese",
         order: 2,
       },
     ]);
+
     await db.insert(schema.lessons).values([
       {
-        id: 1,
-        unitId: 1,
+        id: 5,
+        unitId: 3,
         title: "Nouns 1",
         order: 1,
       },
       {
-        id: 2,
-        unitId: 1,
+        id: 6,
+        unitId: 3,
         title: "Nouns 2",
         order: 2,
       },
       {
-        id: 3,
-        unitId: 1,
+        id: 7,
+        unitId: 3,
         title: "Nouns 3",
         order: 3,
       },
       {
-        id: 4,
-        unitId: 2,
+        id: 8,
+        unitId: 4,
         title: "People",
         order: 4,
       },
     ]);
 
-    //  spanish lesson 1 challenges
+    //  portuguese lesson 1 challenges
     await db.insert(schema.challenges).values([
       {
-        id: 1,
-        lessonId: 1,
+        id: 11,
+        lessonId: 5,
         type: "SELECT",
         question: 'Which one of these is the "the man"?',
         order: 1,
       },
       {
-        id: 2,
-        lessonId: 1,
+        id: 12,
+        lessonId: 5,
         type: "ASSIST",
         question: '"the man"',
         order: 2,
       },
       {
-        id: 3,
-        lessonId: 1,
+        id: 13,
+        lessonId: 5,
         type: "SELECT",
         question: 'Which one of these is the "the robot"?',
         order: 3,
       },
     ]);
 
-    //  spanish lesson 1 challenge 1  options
+    //  portuguese lesson 1 challenge 1  options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 1,
+        challengeId: 11,
         imageSrc: "/man.svg",
         correct: true,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 1,
+        challengeId: 11,
         imageSrc: "/woman.svg",
         correct: false,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 1,
+        challengeId: 11,
         imageSrc: "/robot.svg",
         correct: false,
-        text: "el robot",
-        audioSrc: "/es_robot.mp3",
+        text: "o robô",
+        audioSrc: "/br_robot.mp3",
       },
     ]);
 
-    //  spanish lesson 1 challenge 2 options
+    //  portuguese lesson 1 challenge 2 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 2,
+        challengeId: 12,
         correct: true,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 2,
+        challengeId: 12,
         correct: false,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 2,
+        challengeId: 12,
         correct: false,
-        text: "el robot",
-        audioSrc: "/es_robot.mp3",
+        text: "o robô",
+        audioSrc: "/br_robot.mp3",
       },
     ]);
 
-    //  spanish lesson 1 challenge 3  options
+    //  portuguese lesson 1 challenge 3  options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 3,
+        challengeId: 13,
         imageSrc: "/man.svg",
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 3,
+        challengeId: 13,
         imageSrc: "/woman.svg",
         correct: false,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 3,
+        challengeId: 13,
         imageSrc: "/robot.svg",
         correct: true,
-        text: "el robot",
-        audioSrc: "/es_robot.mp3",
+        text: "o robô",
+        audioSrc: "/br_robot.mp3",
       },
     ]);
 
-    //  spanish lesson 2 challenges
+    //  portuguese lesson 2 challenges
     await db.insert(schema.challenges).values([
       {
-        id: 4,
-        lessonId: 2,
+        id: 14,
+        lessonId: 6,
         type: "SELECT",
         question: 'Which one of these is the "the woman"?',
         order: 1,
       },
       {
-        id: 5,
-        lessonId: 2,
+        id: 15,
+        lessonId: 6,
         type: "ASSIST",
         question: '"the woman"',
         order: 2,
       },
       {
-        id: 6,
-        lessonId: 2,
+        id: 16,
+        lessonId: 6,
         type: "SELECT",
         question: 'Which one of these is the "the zombie"?',
         order: 3,
       },
     ]);
 
-    //  spanish lesson 3 challenges
+    //  portuguese lesson 3 challenges
     await db.insert(schema.challenges).values([
       {
-        id: 7,
-        lessonId: 3,
+        id: 17,
+        lessonId: 7,
         type: "SELECT",
         question: 'Which one of these is the "the boy"?',
         order: 1,
       },
       {
-        id: 8,
-        lessonId: 3,
+        id: 18,
+        lessonId: 7,
         type: "ASSIST",
         question: '"the boy"',
         order: 2,
       },
       {
-        id: 9,
-        lessonId: 3,
+        id: 19,
+        lessonId: 7,
         type: "SELECT",
         question: 'Which one of these is the "the girl"?',
         order: 3,
       },
     ]);
 
-    //  spanish lesson 2 challenge 1 options
+    //  portuguese lesson 2 challenge 1 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 4,
+        challengeId: 14,
         imageSrc: "/man.svg",
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 4,
+        challengeId: 14,
         imageSrc: "/woman.svg",
         correct: true,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 4,
+        challengeId: 14,
         imageSrc: "/boy.svg",
         correct: false,
-        text: "el chico",
-        audioSrc: "/es_boy.mp3",
+        text: "o menino",
+        audioSrc: "/br_boy.mp3",
       },
     ]);
 
-    //  spanish lesson 2 challenge 2 options
+    //  portuguese lesson 2 challenge 2 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 5,
+        challengeId: 15,
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 5,
+        challengeId: 15,
         correct: true,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 5,
+        challengeId: 15,
         correct: false,
-        text: "el robot",
-        audioSrc: "/es_robot.mp3",
+        text: "o robô",
+        audioSrc: "/br_robot.mp3",
       },
     ]);
 
-    //  spanish lesson 2 challenge 3 options
+    //  portuguese lesson 2 challenge 3 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 6,
+        challengeId: 16,
         imageSrc: "/man.svg",
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 6,
+        challengeId: 16,
         imageSrc: "/zombie.svg",
         correct: true,
-        text: "el zombie",
-        audioSrc: "/es_zombie.mp3",
+        text: "o zombie",
+        audioSrc: "/br_zombie.mp3",
       },
       {
-        challengeId: 6,
+        challengeId: 16,
         imageSrc: "/boy.svg",
         correct: false,
-        text: "el chico",
-        audioSrc: "/es_boy.mp3",
+        text: "o menino",
+        audioSrc: "/br_boy.mp3",
       },
     ]);
 
-    //  spanish lesson 3 challenge 1 options
+    //  portuguese lesson 3 challenge 1 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 7,
+        challengeId: 17,
         imageSrc: "/man.svg",
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 7,
+        challengeId: 17,
         imageSrc: "/zombie.svg",
         correct: false,
-        text: "el zombie",
-        audioSrc: "/es_zombie.mp3",
+        text: "o zombie",
+        audioSrc: "/br_zombie.mp3",
       },
       {
-        challengeId: 7,
+        challengeId: 17,
         imageSrc: "/boy.svg",
         correct: true,
-        text: "el chico",
-        audioSrc: "/es_boy.mp3",
+        text: "o menino",
+        audioSrc: "/br_boy.mp3",
       },
     ]);
-    //  spanish lesson 3 challenge 2 options
+    //  portuguese lesson 3 challenge 2 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 8,
+        challengeId: 18,
         correct: false,
-        text: "la mujer",
-        audioSrc: "/es_woman.mp3",
+        text: "a mulher",
+        audioSrc: "/br_woman.mp3",
       },
       {
-        challengeId: 8,
+        challengeId: 18,
         correct: false,
-        text: "el zombie",
-        audioSrc: "/es_zombie.mp3",
+        text: "o zombie",
+        audioSrc: "/br_zombie.mp3",
       },
       {
-        challengeId: 8,
+        challengeId: 18,
         correct: true,
-        text: "el chico",
-        audioSrc: "/es_boy.mp3",
+        text: "o menino",
+        audioSrc: "/br_boy.mp3",
       },
     ]);
 
-    //  spanish lesson 3 challenge 3 options
+    //  portuguese lesson 3 challenge 3 options
     await db.insert(schema.challengeOptions).values([
       {
-        challengeId: 9,
+        challengeId: 19,
         imageSrc: "/girl.svg",
         correct: true,
-        text: "la nina",
-        audioSrc: "/es_girl.mp3",
+        text: "a menina",
+        audioSrc: "/br_girl.mp3",
       },
       {
-        challengeId: 9,
+        challengeId: 19,
         imageSrc: "/man.svg",
         correct: false,
-        text: "el hombre",
-        audioSrc: "/es_man.mp3",
+        text: "o homem",
+        audioSrc: "/br_man.mp3",
       },
       {
-        challengeId: 9,
+        challengeId: 19,
         imageSrc: "/boy.svg",
         correct: false,
-        text: "el chico",
-        audioSrc: "/es_boy.mp3",
+        text: "o menino",
+        audioSrc: "/br_boy.mp3",
       },
     ]);
 
-    //  spanish lesson 4 challenges
+    //  portuguese lesson 4 challenges
     await db.insert(schema.challenges).values([
       {
-        id: 10,
-        lessonId: 4,
+        id: 20,
+        lessonId: 8,
         type: "SELECT",
         question: 'Which one of these is the "the zombie"?',
         order: 1,
